@@ -1,0 +1,74 @@
+int main()
+{
+	ifstream testdata;
+	testdata.open("testdata.txt");
+	
+	if(testdata.is_open())
+		cout << " File Opened : testdata.txt" << endl << endl;
+	else
+	    cout << "Failed to open requested file" << endl;
+	
+	//-----------------------------------------------------
+
+	int i, j, row_prompt_int, row_fail=0, column_prompt_int, column_fail=0;
+	double testValueArray [ROW][COLUMN];
+	double sum=0, average=0, rowTotal=0, columnTotal=0;
+	string row_prompt, column_prompt;
+	
+	
+	
+	
+	for(i=0; i<ROW; i++)
+	{
+		for(j=0; j<COLUMN; j++)
+		{
+			testdata >> testValueArray[i][j];
+			cout << setw(6) << testValueArray[i][j];
+			
+			
+		}
+		cout << endl << endl;
+	}
+	cout << " =============== " << endl;
+	cout << endl;
+	
+	sum=getTotal(testValueArray);
+	average=getAverage(testValueArray);
+	cout << endl;
+	
+	//yg kt bawah ni psl aku tkleh terima klau "specify" tkdk user input
+	
+	do
+	{
+	row_fail=1;
+	cout << " Please enter a specified row number (1-4)to calculate it's rowTotal"  << endl;
+	getline(cin,row_prompt);
+	stringstream(row_prompt) >> row_prompt_int;//jgn tanya
+	
+	if(row_prompt_int>=1 && row_prompt_int <=ROW)
+	   rowTotal= getRowTotal(testValueArray, row_prompt_int);
+	else
+	   row_fail=2;
+	  
+    }while(row_fail==2 );
+	  
+	do
+	{
+	column_fail=1;
+	cout << " Please enter a specified column number (1-3) to calculate it's columnTotal"  << endl;
+	getline(cin,column_prompt);
+	stringstream(column_prompt) >> column_prompt_int;//jgn tanya
+	
+    if(column_prompt_int>=1 && column_prompt_int <=COLUMN)
+	   columnTotal=getColumnTotal(testValueArray, column_prompt_int);
+	else
+	   column_fail=2;
+		    
+    }while(column_fail==2 );
+	
+	
+	
+	
+	//cout << "Hello, there!";
+	return 0;
+}
